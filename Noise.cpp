@@ -1,18 +1,6 @@
 #include "Noise.h"
 
-Noise::Noise()
-{
-}
-
-Noise::~Noise()
-{
-}
-
-void Noise::UpDate(void)
-{
-}
-
-void Noise::SetSeed(uint_fast32_t seed)
+Noise::Noise(uint_fast32_t seed)
 {
 	seed_ = seed;
 	for (std::size_t i{}; i < 256; ++i)
@@ -26,17 +14,21 @@ void Noise::SetSeed(uint_fast32_t seed)
 	}
 }
 
-float Noise::MakeNoise(Size3 size)
+Noise::~Noise()
 {
-	for (float z = 0; z< size.z;z++)
-	{
-		for (float y = 0; y < size.y; y++)
-		{
-			for (float x = 0; x < size.x; x++)
-			{
-			}
-		}
-	}
+}
+
+void Noise::UpDate(void)
+{
+}
+float Noise::MakeNoise(Position3 pos)
+{
+	int xi = static_cast<int>(pos.x);
+	int yi = static_cast<int>(pos.y);
+	int zi = static_cast<int>(pos.z);
+
+
+	return 0.0f;
 }
 
 const std::array<uint_fast8_t, 512> Noise::GetHash()

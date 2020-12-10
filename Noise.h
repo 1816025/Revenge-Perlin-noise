@@ -5,11 +5,10 @@
 class Noise
 {
 public:
-	Noise();
+	Noise(uint_fast32_t seed = 0);
 	~Noise();
 	void UpDate(void);
-	void SetSeed(uint_fast32_t seed = 0);
-	float MakeNoise(Size3 pos);
+	float MakeNoise(Position3 pos);
 	const std::array<uint_fast8_t, 512> GetHash();
 private:
 	std::array<uint_fast8_t, 512> hash_;
