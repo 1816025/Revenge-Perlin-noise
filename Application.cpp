@@ -14,23 +14,26 @@ void Application::Run()
 {
     auto noise = std::make_shared<Noise>();
     auto hash = noise->GetHash();
-    const Size3 size = Size3(100, 100, 0);
+    const Size3 size = Size3(100.0f, 100.0f, 1.0f);
     const float frequency = 16.0f;
-    for (float a = 0; a <= size.z; a++)
+    std::vector<float> result;
+    for (float a = 0; a < size.z; a++)
     {
-        for (float b = 0; b <= size.y; b++)
+        for (float b = 0; b < size.y; b++)
         {
-            for (float c = 0; c <= size.x; c++)
+            for (float c = 0; c < size.x; c++)
             {
                 float x = c / frequency;
                 float y = b / frequency;
                 float z = a / frequency;
-                noise->MakeNoise(Position3(x, y, z));
+                result.push_back(noise->MakeNoise(Position3(x, y, z)));
             }
         }
     }
     while (ProcessMessage() != -1)
     {
+        ClsDrawScreen();
+        ScreenFlip();
     }
 }
 
