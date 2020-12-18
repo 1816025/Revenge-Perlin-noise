@@ -14,9 +14,9 @@ void Application::Run()
 {
     auto noise = std::make_shared<Noise>();
     auto hash = noise->GetHash();
-    const Size3 size = Size3(100.0f, 100.0f, 1.0f);
+    const Size3 size = Size3(300.0f, 300.0f, 1.0f);
     const float frequency = 16.0f;
-    std::vector<float> result;
+    float result[300][300][1];
     for (float a = 0; a < size.z; a++)
     {
         for (float b = 0; b < size.y; b++)
@@ -26,13 +26,25 @@ void Application::Run()
                 float x = c / frequency;
                 float y = b / frequency;
                 float z = a / frequency;
-                result.push_back(noise->MakeNoise(Position3(x, y, z)));
+                result[(int)c][(int)b][(int)a] = (noise->MakeNoise(Position3(x, y, z)));
             }
         }
     }
     while (ProcessMessage() != -1)
     {
         ClsDrawScreen();
+        
+        for (int b = 0; b < size.y; b++)
+        {
+            for (int c = 0; c < size.x; c++)
+            {
+                for (int a = 0; a < size.z; a++)
+                {
+                    auto col = (int)(result[c][b][a] * 255);
+                    DrawPixel(c, b, GetColor(col, col, col));
+                }
+            }
+        }
         ScreenFlip();
     }
 }
